@@ -36,6 +36,7 @@ func romnummer (x1 string) int {
 func nummerrom (result int) string {
     g:=0
     c := ""
+    if result < 1 { panic("Результат меньше еденицы!") }
     
     if result / 100 > 0 { 
         c = c + "C"
@@ -53,16 +54,11 @@ func nummerrom (result int) string {
         result = result%10
     }
     
-    if result / 9 > 0 {
-        c = c + "XI"
-        result = result - 9
-    }
-    
     if result / 5 > 0 {
         c = c + "V"
         result = result - 5
     }
-    
+   
     if result > 0 { 
         for g=1; g <= result; g++ {
         c = c + "I" 
@@ -95,8 +91,7 @@ func arabic (count int, s string) {
 	            
 	        } else  {
 	            
-	            if string(s[j]) == "I" || string(s[j]) == "V" || string(s[j]) == "X" { fmt.Println("Выдача паники, так как используются одновременно разные системы счисления.")
-	            return
+	            if string(s[j]) == "I" || string(s[j]) == "V" || string(s[j]) == "X" { panic("Используются одновременно разные системы счисления.")
 	            
 	        } 
         }
@@ -104,17 +99,15 @@ func arabic (count int, s string) {
     j++
 }
 
-    if x < 0 || x >10 || y < 0 || y > 10 { fmt.Println("Выдача паники, неккоректный ввод данных") 
-        return
+    if x < 0 || x >10 || y < 0 || y > 10 { panic("Неккоректный ввод данных") 
     }
     
-    if a > 1 { fmt.Println("Выдача паники, так как формат математической операции не удовлетворяет заданию ") 
-        return
+    if a > 1 { panic("Формат математической операции не удовлетворяет заданию ") 
     }
     
     result = ( calc (x, y, o))
     
-    if result <= 100 { fmt.Println(result)
+    if result <= 100 { fmt.Print(result)
     } else {
    
    return
@@ -147,8 +140,7 @@ func rom (count int, s string) {
 	            if string(s[k]) == " " { b++ 
 	
 	        } else {
-	            if s[k] >= 48 && s[k] <= 57 { fmt.Println("Выдача паники, так как используются одновременно разные системы счисления.")
-	            return
+	            if s[k] >= 48 && s[k] <= 57 { panic("Используются одновременно разные системы счисления.")
 	        }
 	       }
         }
@@ -157,23 +149,22 @@ func rom (count int, s string) {
     k++
 }
 
-    if a > 1 { fmt.Println("Выдача паники, так как формат математической операции не удовлетворяет заданию.") 
-        return
+    if a > 1 { panic("Формат математической операции не удовлетворяет заданию.") 
     }
     
     x := (romnummer(x1))
     y := (romnummer(y1))
     
-   if x > 10 || y > 10 { fmt.Println("Выдача паники, некорректный ввод данных.")
-      return }
+   if x > 10 || y > 10 { panic("Некорректный ввод данных.")
+    }
     
     
     result := ( calc (x, y, o))
     
-    if result < 0 { fmt.Println("Выдача паники, так как в римской системе нет отрицательных чисел.")
+    if result < 0 { panic("В римской системе нет отрицательных чисел.")
         
         } else {
-            if result == 101 { fmt.Println("Выдача паники, некорректный ввод данных.")
+            if result == 101 { panic("Некорректный ввод данных.")
         } else { 
             fmt.Println( nummerrom(result))
             
@@ -193,8 +184,7 @@ func rom (count int, s string) {
 		return (x * y)
 	case "/":
 		if y == 0 {
-			fmt.Println("На ноль делить нельзя!")
-			return 101
+			panic("На ноль делить нельзя!")
 		}	
 			return (x / y)
 		}
@@ -212,8 +202,8 @@ func main() {
 	
 	var count int = len(s) 
 	
-	if count < 3 { fmt.Println( "Выдача паники, так как строка не является математической операцией.")
-	return } 
+	if count < 3 { panic( "Строка не является математической операцией.")
+    } 
 	
 	
     if string(s[0]) == "I" || string(s[0]) == "V" || string(s[0]) == "X" {
@@ -226,8 +216,7 @@ func main() {
                         arabic(count, s)
                         return
                 } else {
-                        fmt.Println("Выдача паники, неккоректный ввод данных")
-                        return
+                        panic("Неккоректный ввод данных")
             }
     
 }
